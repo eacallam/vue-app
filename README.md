@@ -1,5 +1,8 @@
 # vue-app
 
+Using https://www.taniarascia.com/getting-started-with-vue/ as a guide, this 
+repo is a space for me to work with Vue.
+
 ## Project setup
 ```
 npm install
