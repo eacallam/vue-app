@@ -1,33 +1,42 @@
 <template>
   <div id="app" class="small-container">
-    <h1>Employees</h1>
-    <employee-form @add:employee="addEmployee" />
+    <h1>Employee Database <span>✨</span></h1>
+    <nasa-picture
+      :picture="picture"
+    />
+    <employee-form
+      @add:employee="addEmployee"
+    />
     <employee-table
-    :employees="employees"
-    @delete:employee="deleteEmployee"
-    @edit:employee="editEmployee"
-  />
+      :employees="employees"
+      @delete:employee="deleteEmployee"
+      @edit:employee="editEmployee"
+    />
   </div>
 </template>
 
 <script>
   import EmployeeTable from '@/components/EmployeeTable.vue'
   import EmployeeForm from '@/components/EmployeeForm.vue'
+  import NasaPicture from '@/components/NasaPicture.vue'
 
   export default {
     name: 'app',
     components: {
       EmployeeTable,
-      EmployeeForm
+      EmployeeForm,
+      NasaPicture
     },
     data() {
       return {
         employees: [],
+        picture: {},
       }
     },
 
     mounted() {
-      this.getEmployees()
+      this.getEmployees(),
+      this.getNasaPicture()
     },
 
     methods: {
@@ -36,6 +45,16 @@
           const response = await fetch('https://jsonplaceholder.typicode.com/users')
           const data = await response.json()
           this.employees = data
+        } catch (error) { // eslint-disable-next-line no-console
+          console.error(error);
+        }
+      },
+      async getNasaPicture() {
+        var apiKey = 'XUa1X6jQD7DSsdaLShpxfuqkV1tOhbJgj1S4Ud6c';
+        try {
+          const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=' + apiKey)
+          const nasaData = await response.json()
+          this.picture = nasaData
         } catch (error) { // eslint-disable-next-line no-console
           console.error(error);
         }
@@ -103,5 +122,27 @@
 
   .small-container {
     max-width: 680px;
+  }
+
+  h1 {
+    font-weight: bold;
+    color: #f5d75f;
+    font-size: 45px;
+    text-shadow:
+    -1px -1px 0 #403e37,
+    0   -1px 0 #403e37,
+    1px -1px 0 #403e37,
+    1px  0   0 #403e37,
+    1px  1px 0 #403e37,
+    0    1px 0 #403e37,
+  -1px  1px 0 #403e37,
+  -1px  0   0 #403e37;
+    margin-top: 10px;
+    margin-top: 10px;
+    margin-left: -16px;
+  }
+
+  h1 span {
+    text-shadow: none;
   }
 </style>
