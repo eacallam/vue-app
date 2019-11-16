@@ -1,6 +1,6 @@
 <template>
   <figure id="nasa-picture">
-    <img :src="picture.url" alt="picture.title">
+    <img :src="picture.url" :alt="picture.title">
     <figcaption>{{picture.title}}, {{picture.date}}</figcaption>
   </figure>
 </template>
